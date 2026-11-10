@@ -19,6 +19,15 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/build.gradle', '**/gradle.lockfile') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
       - name: Build mod jar
         run: |
           chmod +x ./gradlew
